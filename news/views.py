@@ -4,6 +4,7 @@ from .models import Article
 from .forms import NewsLetterForm
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from .email import send_welcome_email
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -67,11 +68,13 @@ def search_results(request):
 
     else:
         message = "You haven't searched for any term"
-        return render(request, 'all-news/search.html',{"message":message})  
+        return render(request, 'all-news/search.html',{"message":message}) 
 
+@login_required(login_url='/accounts/login/')
 def article(request,article_id):
     try:
         article = Article.objects.get(id = article_id)
     except Article.DoesNotExist:
         raise Http404()
     return render(request,"all-news/article.html", {"article":article})
+
