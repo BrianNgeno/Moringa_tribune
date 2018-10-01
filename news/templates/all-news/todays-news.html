@@ -1,0 +1,48 @@
+{%extends 'all-news/base.html'%}
+{% load bootstrap3 %}
+{% block content %}
+{{ block.super}}
+
+<div class="container">
+
+  <!-- Looping through news   -->
+  {% for news_item in news %}
+  <div class="jumbotron">
+    <div class="row">
+      <!-- displaying News articles -->
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <p> {{ news_item.post }} </h2>
+          <a class="" href="article/{{news_item.id}}">
+            <button class="btn btn-outline-primary btn-sm" style="color:white !important"> More Details</button>
+          </a>
+      </div>
+
+      <!--Display news Article images  -->
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="hovereffect">
+          <img src="{{news_item.article_image.url}}" class="img-responsive" alt="{{news_item.article_image.url}}" style="height:300px;width:700px;">
+          <div class="overlay">
+            <a class="info" href="article/{{news_item.id}}">View Details</a>
+          </div>
+        </div>
+      </div>
+      <!-- Looping through news end   -->
+      <div class="container-fluid">
+
+        <form action="{%url 'newsToday'%}" method="post">
+          {%csrf_token%}
+
+          {% bootstrap_form letterForm layout='inline' %}
+          <input type="submit" value="Subscribe" style="color:black;">
+        </form>
+      </div>
+    </div>
+    {% empty %}
+    <div class="row">
+      <h2 class="text-center">There No News Items</h2>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  {% endblock %}

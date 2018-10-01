@@ -1,0 +1,27 @@
+{%extends 'all-news/base.html'%}
+
+{% block content %}
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="card">
+                <img src="{{article.article_image.url}}" class="img-responsive" alt="image">
+            </div>
+        </div>
+
+        <div class="row">
+            <h1 class="text-center">{{article.title}}</h1>
+        </div>
+
+        <div class="row">
+            <p>{{article.post}}</p>
+        </div>
+
+        <div class="row">
+            <p style="color:lime">Posted {{article.pud_date|timesince}} by {{article.editor.first_name}}</p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
